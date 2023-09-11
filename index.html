@@ -14,6 +14,7 @@
   document.documentElement.classList.remove('dark')
 }
     </script>
+
 </head>
 <body>
     <!-- Nav start-->
@@ -133,7 +134,7 @@
     <!-- About section end -->
 
     <!-- portfolio section start -->
-    <section id="portfolio" class="pt-36 pb-16 dark:bg-blue-900">\
+    <section id="portfolio" class="pt-36 pb-16 dark:bg-blue-900">
         <div class="container">
             <div class="w-full px-4">
                 <div class="max-w-xl mx-auto text-center mb-16">
@@ -151,7 +152,7 @@
                         <div class="py-8 px-6">
                          <h3 class="block font-bold text-xl text-biru mb-3 truncate">Calculator Sederhana</h3>
                          <p class="font-medium text-base text-black mb-5">Calculator Sederhana ini memnggunakan bahasa pemograman JavaScript.</p>
-                         <a href="#" class="font-medium text-sm text-white bg-biru py-2 px-4 rounded-lg hover:opacity-80">
+                         <a href="https://github.com/vinakmal5311/calculator-sederhana" class="font-medium text-sm text-white bg-biru py-2 px-4 rounded-lg hover:opacity-80">
                             Source Code
                          </a>
                         </div>  
@@ -228,24 +229,35 @@
                 </div>
             </div>
 
-            <form action="#">
-                <div class="w-full lg:w-2/3 lg:mx-auto">
+              
+            <div class="w-full lg:w-2/3 lg:mx-auto pt-5">
+                <div class="my-alert bg-sky-400 border border-sky-300 text-white px-3 py-2 rounded relative" role="alert">
+                  <span class=" rounded-full bg-sky-500 px-2 py-1 font-bold mr-3">Yeayyy..</span>
+                  <span class="font-semibold mr-2 text-left flex-auto">Pesan kamu berhasil dikirim..👍</span>
+                </div>
+                </div>
+            
+
+            <form action="#" name="google">
+                <div class="w-full lg:w-2/3 lg:mx-auto pt-5">
                     <div class="w-full px-4 mb-8">
-                        <label for="name" class="text-base text-biru font-bold ">Nama</label>
-                        <input type="text" id="name" class="w-full bg-slate-200 text-black p-3 rounded-md focus:outline-none focus:ring-1 focus:border-biru"> 
+                        <label for="nama" class="text-base text-biru font-bold ">Nama</label>
+                        <input type="text" id="nama" name="nama" class="w-full bg-slate-200 text-black p-3 rounded-md focus:outline-none focus:ring-1 focus:border-biru "> 
                     </div>
                     <div class="w-full px-4 mb-8">
                         <label for="email" class="text-base text-biru font-bold ">Email</label>
-                        <input type="text" id="email" class="w-full bg-slate-200 text-black p-3 rounded-md focus:outline-none focus:ring-1 focus:border-biru"> 
+                        <input type="email" id="nama" name="email" class="w-full bg-slate-200 text-black p-3 rounded-md focus:outline-none focus:ring-1 focus:border-biru"> 
                     </div>
                     <div class="w-full px-4 mb-8">
-                        <label for="pesa" class="text-base text-biru font-bold ">Pesan</label>
-                        <textarea type="text" id="email" class="w-full bg-slate-200 text-black p-3 rounded-md focus:outline-none focus:ring-1 focus:border-biru h-32">
+                        <label for="pesan" class="text-base text-biru font-bold ">Pesan</label>
+                        <textarea type="text" name="pesan" class="w-full bg-slate-200 text-black p-3 rounded-md focus:outline-none focus:ring-1 focus:border-biru ">
                         </textarea> 
                     </div>
-                    <div class="w-full px-4">
-                        <button class="text-base font-semibold text-white bg-biru py-3 px-8 rounded-full w-full hover:opacity-80 hover:shadow-lg transition duration-500">Kirim</button>
-                    </div>
+
+                        <button class="text-base font-semibold text-white bg-biru py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 btn-kirim" type="submit ">Kirim</button>
+
+                        <button class="text-base font-semibold text-white bg-biru py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 btn-loading hidden" type="button" disabled>Proses...</button>
+                       
                 </div>
             </form>
         </div>
@@ -335,10 +347,40 @@
     <!-- footer end -->
 
     <!-- back to top start -->
-    <a href="#home" id="totop" class="fixed z-[9999] p-4 bottom-4 right-4 rounded-full h-14 w-14 bg-biru hover:animate-pulse hidden">
+    <a href="#home" id="totop" class="fixed z-[9999] p-4 bottom-4 right-4 rounded-full h-14 w-14 bg-biru hover:animate-bounce hidden">
         <img src="dist/img/icons8-collapse-arrow-24.png" width="50" height="50" alt="">
     </a>
-    <!-- bacl to top end -->
+    <!-- back to top end -->
    <script src="dist/js/script.js"></script>
+
+   <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwEeJJwGgtjXhOpfPAEUgz2ARPlcxgOkXdnzIDB7EFwjhBzySQU6rslO10JTJEATa3t/exec';
+    const form = document.forms['google'];
+    const btnKirim = document.querySelector('.btn-kirim');
+    const btnLoading = document.querySelector('.btn-loading'); 
+    const alert = document.querySelector('.my-alert');
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // ketika tombol submit diklik
+
+      btnLoading.classList.toggle('hidden');
+      btnKirim.classList.toggle('hidden');
+        
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+
+            btnLoading.classList.toggle('hidden');
+            btnKirim.classList.toggle('hidden');
+
+            alert.classList.toggle('hidden');
+
+            form.reset();
+            console.log('Success!', response);
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
 </body>
 </html>
